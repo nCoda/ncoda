@@ -1,0 +1,9 @@
+---
+# NOTE: the "ansible" role isn't included in the "ncoda" playbook because we want to stop and
+#       restart Ansible after this, just in case it was updated
+- name: Setup the nCoda Ansible virtualenv
+  hosts: localhost
+  connection: local
+
+  roles:
+    - ansible

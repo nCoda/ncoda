@@ -1,0 +1,4 @@
+---
+hg_version: 3.4.2
+repo_directory: programs
+ansible_venv_dir: ansible-venv

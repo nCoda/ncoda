@@ -1,0 +1,29 @@
+---
+- name: make a gitignore file
+  template: src=gitignore.j2 dest={{ ansible_env.PWD }}/.gitignore
+
+- name: install Git
+  package: name=git state=present
+
+- name: install Mercurial
+  pip: name=Mercurial version={{ hg_version }} state=present
+
+- name: make the repositories directory
+  file: name={{ repo_directory }} state=directory
+
+- name: clone the Git repositories
+  git:
+    repo: "{{ item.repo }}"
+    dest: "programs/{{ item.dest }}"
+  with_items:
+    - {"repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/10/mercurial-hug.git", "dest": "mercurial-hug"}
+    - {"repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/LC/lychee.git", "dest": "lychee"}
+    - {"repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/JL/julius.git", "dest": "julius"}
+    - {"repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/FJ/fujian.git", "dest": "fujian"}
+
+- name: clone the Mercurial repositories
+  hg:
+    repo: "{{ item.repo }}"
+    dest: "programs/{{ item.dest }}"
+  with_items:
+    - {"repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HG/hgdemo/", "dest": "hgdemo"}

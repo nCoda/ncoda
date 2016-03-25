@@ -1,0 +1,9 @@
+---
+# NOTE: the "ansible" role isn't included here, because we want to stop and restart Ansible after
+#       that, just in case it was updated
+- name: Setup the nCoda development environment.
+  hosts: localhost
+  connection: local
+
+  roles:
+    - repositories

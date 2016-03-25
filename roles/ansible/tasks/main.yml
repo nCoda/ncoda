@@ -1,0 +1,5 @@
+---
+- name: install Ansible virtualenv requirements
+  pip:
+    requirements: "{{ ansible_env.PWD }}/ansible-requirements.txt"
+    virtualenv: "{{ ansible_env.PWD }}/{{ ansible_venv_dir }}"
