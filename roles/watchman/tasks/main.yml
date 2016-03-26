@@ -1,0 +1,8 @@
+---
+- name: see whether "watchman" is installed
+  package: name=watchman state=present
+
+# TODO: use my OBS repository for Linux
+# https://build.opensuse.org/package/show/home:crantila:watchman/watchman
+
+# TODO: or compile it ourselves, which will also work for OS X?

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# NOTE: this file is managed by Ansible; your changes will be overwritten!
+
+cd {{ repo_directory }}/fujian
+git checkout ncoda
+cd {{ repository_root }}
+
+source {{ lychee_venv_dir }}/bin/activate
+echo "Starting Fujian/Lychee"
+exec python -m fujian

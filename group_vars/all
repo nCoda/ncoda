@@ -5,13 +5,16 @@ nodejs_old_versions:  # will be deleted
     - 5.1.0
 python_version: 2.7
 
+# root directory of the "ncoda" repository
+repository_root: "{{ ansible_env.PWD }}"
+
 repo_directory_rel: programs
-repo_directory: "{{ ansible_env.PWD }}/{{ repo_directory_rel }}"
+repo_directory: "{{ repository_root }}/{{ repo_directory_rel }}"
 ansible_venv_dir_rel: ansible-venv
-ansible_venv_dir: "{{ ansible_env.PWD }}/{{ ansible_venv_dir_rel }}"
+ansible_venv_dir: "{{ repository_root }}/{{ ansible_venv_dir_rel }}"
 lychee_venv_dir_rel: lychee-venv
-lychee_venv_dir: "{{ ansible_env.PWD }}/{{ lychee_venv_dir_rel }}"
-nodejs_dir: "{{ ansible_env.PWD }}/nodejs-{{ nodejs_version }}"
+lychee_venv_dir: "{{ repository_root }}/{{ lychee_venv_dir_rel }}"
+nodejs_dir: "{{ repository_root }}/nodejs-{{ nodejs_version }}"
 node_path: "{{ nodejs_dir }}/bin/node"
 npm_path: "{{ nodejs_dir }}/bin/npm"
 
@@ -23,3 +26,13 @@ git_repositories:
 
 hg_repositories:
     - {"name": "hgdemo", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HG/hgdemo/"}
+
+path_watchman: "/usr/bin/watchman-make"
+fujian_start_script_rel: ".fujian.sh"
+fujian_start_script: "{{ repository_root }}/{{ fujian_start_script_rel }}"
+julius_electron_start_script_rel: ".julius-electron.py"
+julius_electron_start_script: "{{ repository_root }}/{{ julius_electron_start_script_rel }}"
+julius_http_start_script_rel: ".julius-http.py"
+julius_http_start_script: "{{ repository_root }}/{{ julius_http_start_script_rel }}"
+
+julius_http_port: 8000

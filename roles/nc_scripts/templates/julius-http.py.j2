@@ -1,0 +1,137 @@
+#!/usr/bin/env python
+
+# NOTE: this file is managed by Ansible; your changes will be overwritten.
+
+# Development Server for nCoda
+
+import os
+import os.path
+import SimpleHTTPServer
+import SocketServer
+import subprocess
+import time
+
+_HTTP_PORT = {{ julius_http_port }}
+
+
+# list of the JS files that must be compiled with Watchify; it's input filename, then output filename
+_COMPILE_WITH_WATCHIFY = [
+    ('{{ repo_directory }}/julius/js/ncoda-init.js',
+     '{{ repo_directory }}/julius/js/ncoda-compiled.js'),
+]
+
+# list of the CSS files that must be compiled from LESS; it's the shell path we should ask Watchman
+# to watch, then the input and output filenames for lessc.
+_COMPILE_WITH_LESSC = [
+    ('{{ repo_directory }}/julius/css/ncoda/*.less',
+     '{{ repo_directory }}/julius/css/ncoda/main.less',
+     '{{ repo_directory }}/julius/css/ncoda/main.css'),
+]
+
+_PATH_TO_WATCHIFY = '{{ repo_directory }}/julius/node_modules/.bin/watchify'
+_PATH_TO_LESSC = '{{ repo_directory }}/julius/node_modules/.bin/lessc'
+_PATH_TO_ELECTRON = '{{ repo_directory }}/julius/node_modules/.bin/electron'
+_PATH_TO_WATCHMAN = '{{ path_watchman }}'
+
+
+def run_http_server():
+    print('\nStarting the HTTPServer on http://localhost:{}/programs/julius/'.format(_HTTP_PORT))
+    handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+    httpd = SocketServer.TCPServer(('localhost', _HTTP_PORT), handler)
+    httpd.serve_forever()
+
+
+def wait_for_existence(files):
+    '''
+    Given a list with filenames, don't return until all those files exist.
+    '''
+    print('Waiting for the JavaScript assets to compile.\n' +
+          '... (the web server will start automatically)...'
+         )
+    compiled = [False for _ in range(len(files))]
+    while not all(compiled):
+        time.sleep(0.25)
+        for i, pathname in enumerate(files):
+            if not compiled[i]:
+                if os.path.exists(pathname):
+                    compiled[i] = True
+
+
+def the_script():
+    # remove existing Watchify-compiled files (when they exist again, we'll know they're current)
+    for each_file in _COMPILE_WITH_WATCHIFY:
+        if os.path.exists(each_file[1]):
+            os.remove(each_file[1])
+
+    # hold the Popen instances
+    subprocesses = []
+
+    try:
+        # set up some Watchify instances
+        for each_file in _COMPILE_WITH_WATCHIFY:
+            print('Starting Watchify for {}'.format(each_file[0]))
+            try:
+                kummand = [_PATH_TO_WATCHIFY, each_file[0], '-o', each_file[1], '--debug', '--ignore-missing']
+                subprocesses.append(subprocess.Popen(kummand))
+            except subprocess.CalledProcessError as cperr:
+                print('Encountered the following error while starting Watchify:\n{}'.format(cperr))
+                raise SystemExit(1)
+
+        # Compile LESS files to CSS
+        # first compile the files initially
+        for each_file in _COMPILE_WITH_LESSC:
+            try:
+                kummand = [_PATH_TO_LESSC, '--clean-css', '--source-map', each_file[1], each_file[2]]
+                subprocess.check_output(kummand)
+            except subprocess.CalledProcessError as cperr:
+                print('Encountered the following error while starting lessc:\n{}'.format(cperr))
+                raise SystemExit(1)
+
+        # now, if we can, start Watchman too
+        #
+        # the command will look something like this (note the single quotes! And how they're
+        #     missing in what we submit below!):
+        #  watchman-make --make path_to_lessc -p 'path_to_watch' -t '--clean-css compile_this compiled_path'
+        #
+        print('Starting Watchman for automatic LESS compilation.')
+        kummand = [_PATH_TO_WATCHMAN, '--make', '{}'.format(_PATH_TO_LESSC)]
+        for each_file in _COMPILE_WITH_LESSC:
+            kummand.append('-p')
+            kummand.append('{}'.format(each_file[0]))
+            kummand.append('-t')
+            kummand.append("--clean-css --source-map {0} {1}".format(each_file[1], each_file[2]))
+        try:
+            subprocesses.append(subprocess.Popen(kummand))
+        except subprocess.CalledProcessError as cperr:
+            print('Encountered the following error while starting Watchman:\n{}'.format(cperr))
+            raise SystemExit(1)
+
+        # wait for the compiled JavaScript files to appear
+        wait_for_existence([x[1] for x in _COMPILE_WITH_WATCHIFY])
+
+        # see whether any of the subprocesses have crashed
+        for proc in subprocesses:
+            proc.poll()
+            if proc.returncode is not None:
+                print('\nERROR: One of the processes had a problem; devserver quitting!')
+                raise SystemExit(1)
+
+        # we'll catch KeyboardInterrupt so we can try killing babel on the way out
+        try:
+            run_http_server()
+        except KeyboardInterrupt:
+            print('')
+
+    finally:
+        for each_instance in subprocesses:
+            # NB: in Python 3, this should be in a try/except because it might raise a
+            #     ProcessLookupError if the process has already terminated
+            each_instance.terminate()
+            print('Terminated subprocess with PID {}'.format(each_instance.pid))
+            each_instance.wait()
+
+
+if '__main__' == __name__:
+    the_script()
+else:
+    print('This script is only intended to be run from a commandline.')

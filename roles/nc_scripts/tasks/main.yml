@@ -1,0 +1,9 @@
+---
+- name: install the Fujian start script
+  template: src=fujian.sh.j2 dest={{ fujian_start_script }} mode="u=rwx,g=rx,o=rx"
+
+- name: install the Julius/Electron start script
+  template: src=julius-electron.py.j2 dest={{ julius_electron_start_script }} mode="u=rwx,g=rx,o=rx"
+
+- name: install the Julius/HTTPServer start script
+  template: src=julius-http.py.j2 dest={{ julius_http_start_script }} mode="u=rwx,g=rx,o=rx"

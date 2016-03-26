@@ -9,3 +9,18 @@
     - repositories
     - lychee
     - julius
+    - watchman
+    - nc_scripts
+
+# TODO:
+# - finish watchman
+# - template script for the "nc" commands below
+#
+# - in the "nc" command:
+#   - update/upgrade/sync
+#   - test [julius|lychee|all] (default "all")
+#   - reset (clean up the "hgdemo" repository)
+#   - restart [fujian|julius] (default "all")
+#   - activate [lychee|ansible] (activate which virtualenv? Default lychee)
+#
+# - consider git hooks that tell you when your dependencies are out-of-sync
