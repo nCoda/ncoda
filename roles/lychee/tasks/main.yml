@@ -1,0 +1,4 @@
+---
+- include: python_linux.yml
+  when: ansible_system == "Linux"
+- include: setup_venv.yml

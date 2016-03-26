@@ -4,5 +4,5 @@
 
 source ansible-venv/bin/activate
 
-ansible-playbook -i .inventory ansible.yml
-ansible-playbook -i .inventory ncoda.yml
+ansible-playbook -i .inventory .ansible.yml
+ansible-playbook -i .inventory .initialize.yml

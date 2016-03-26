@@ -1,0 +1,21 @@
+---
+- name: check we have Python {{ python_version }}
+  fail: msg="Please install Python {{ python_version }}"
+  when: not ansible_python_version.startswith('{{ python_version }}')
+
+- name: install libxml/libxslt for lxml (RedHat family)
+  package: name={{ item }} state=present
+  when: ansible_os_family == "RedHat"
+  with_items:
+    - libxml2
+    - libxslt
+    - libxml2-devel
+    - libxslt-devel
+- name: install libxml/libxslt for lxml (Debian family)
+  package: name={{ item }} state=present
+  when: ansible_os_family == "Debian"
+  with_items:
+    - libxml2
+    - libxslt1.1
+    - libxml2-dev
+    - libxslt1-dev

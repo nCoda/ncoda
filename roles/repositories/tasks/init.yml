@@ -1,0 +1,19 @@
+---
+# NOTE: this playbook is for repo initialization; it's not friendly if someone's already developing
+
+- name: make the repositories directory
+  file: name={{ repo_directory }} state=directory
+
+- name: clone the Git repositories
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ repo_directory }}/{{ item.name }}"
+    force: yes
+    recursive: yes
+  with_items: "{{ git_repositories }}"
+
+- name: clone the Mercurial repositories
+  hg:
+    repo: "{{ item.repo }}"
+    dest: "{{ repo_directory }}/{{ item.name }}"
+  with_items: "{{ hg_repositories }}"

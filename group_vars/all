@@ -1,4 +1,19 @@
 ---
 hg_version: 3.4.2
-repo_directory: programs
-ansible_venv_dir: ansible-venv
+python_version: 2.7
+
+repo_directory_rel: programs
+repo_directory: "{{ ansible_env.PWD }}/{{ repo_directory_rel }}"
+ansible_venv_dir_rel: ansible-venv
+ansible_venv_dir: "{{ ansible_env.PWD }}/{{ ansible_venv_dir_rel }}"
+lychee_venv_dir_rel: lychee-venv
+lychee_venv_dir: "{{ ansible_env.PWD }}/{{ lychee_venv_dir_rel }}"
+
+git_repositories:
+    - {"name": "mercurial-hug", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/10/mercurial-hug.git"}
+    - {"name": "lychee", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/LC/lychee.git"}
+    - {"name": "julius", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/JL/julius.git"}
+    - {"name": "fujian", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/FJ/fujian.git"}
+
+hg_repositories:
+    - {"name": "hgdemo", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HG/hgdemo/"}
