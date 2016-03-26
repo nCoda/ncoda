@@ -1,5 +1,8 @@
 ---
 hg_version: 3.4.2
+nodejs_version: 5.1.1  # as per current version in Electron
+nodejs_old_versions:  # will be deleted
+    - 5.1.0
 python_version: 2.7
 
 repo_directory_rel: programs
@@ -8,6 +11,9 @@ ansible_venv_dir_rel: ansible-venv
 ansible_venv_dir: "{{ ansible_env.PWD }}/{{ ansible_venv_dir_rel }}"
 lychee_venv_dir_rel: lychee-venv
 lychee_venv_dir: "{{ ansible_env.PWD }}/{{ lychee_venv_dir_rel }}"
+nodejs_dir: "{{ ansible_env.PWD }}/nodejs-{{ nodejs_version }}"
+node_path: "{{ nodejs_dir }}/bin/node"
+npm_path: "{{ nodejs_dir }}/bin/npm"
 
 git_repositories:
     - {"name": "mercurial-hug", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/10/mercurial-hug.git"}

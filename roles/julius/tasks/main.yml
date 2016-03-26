@@ -1,0 +1,16 @@
+---
+- name: check whether NodeJS is installed
+  stat: path={{ nodejs_dir }}
+  register: nodejs_stat
+
+- include: install_node.yml
+  when: not nodejs_stat.stat.exists
+
+- name: install Julius NPM libraries
+  npm:
+    executable: "{{ npm_path }}"
+    path: "{{ repo_directory }}/julius"
+    production: no
+    state: present
+- name: run an NPM deduplication
+  command: "{{ npm_path }} dedupe chdir={{ repo_directory }}/julius"
