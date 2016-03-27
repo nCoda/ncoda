@@ -1,0 +1,7 @@
+---
+- name: check whether NodeJS is installed
+  stat: path={{ nodejs_dir }}
+  register: nodejs_stat
+
+- include: install_nodejs.yml
+  when: not nodejs_stat.stat.exists
