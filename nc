@@ -12,10 +12,32 @@ case $1 in
     "run")
         case $2 in
             "http")
-            exec ./.julius-http.py
+                echo "Starting Julius via web server"
+                exec ./.julius-http.py
             ;;
             *)
-            exec ./.julius-electron.py
+                echo "Starting Julius in Electron"
+                exec ./.julius-electron.py
+            ;;
+        esac
+    ;;
+
+    "update"|"upgrade"|"sync")
+        case $2 in
+            "julius")
+                echo "Updating Julius's dependencies"
+                source ansible-venv/bin/activate
+                ansible-playbook -i .inventory .initialize.yml -t update_julius
+            ;;
+            "lychee")
+                echo "Updating Lychee's dependencies"
+                source ansible-venv/bin/activate
+                ansible-playbook -i .inventory .initialize.yml -t update_lychee
+            ;;
+            *)
+                echo "Updating all dependencies"
+                source ansible-venv/bin/activate
+                ansible-playbook -i .inventory .initialize.yml -t update
             ;;
         esac
     ;;
@@ -31,5 +53,8 @@ case $1 in
         echo "  initialize"
         echo "- run [electron|http]     Start Fujian/Lychee and Julius, either with"
         echo "                          'electron' (the default) or a web server."
+        echo "- update [julius|lychee|all] (default 'all') Update, upgrade, or"
+        echo "  upgrade                 synchronize dependencies for these softwares."
+        echo "  sync"
         echo ""
 esac
