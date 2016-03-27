@@ -9,6 +9,13 @@ case $1 in
         ansible-playbook -i .inventory .initialize.yml
     ;;
 
+    "reset")
+        printf "Resetting 'hgdemo' test MEI repository to a known-good state.\n\n"
+        source ansible-venv/bin/activate
+        cd programs/hgdemo
+        hg update -C d16397e87778
+    ;;
+
     "run")
         case $2 in
             "http")

@@ -17,7 +17,6 @@
 # - template script for the "nc" commands below
 #
 # - in the "nc" command:
-#   - reset (clean up the "hgdemo" repository)
 #   - restart [fujian|julius] (default "all")
 #   - activate [lychee|ansible|julius] (activate which virtualenv? Default lychee. Or export aliases for "node" and "npm")
 #

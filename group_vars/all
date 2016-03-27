@@ -36,3 +36,5 @@ julius_http_start_script_rel: ".julius-http.py"
 julius_http_start_script: "{{ repository_root }}/{{ julius_http_start_script_rel }}"
 
 julius_http_port: 8000
+
+hgdemo_clean_revision_hash: d16397e87778
