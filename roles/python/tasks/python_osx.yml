@@ -1,0 +1,9 @@
+---
+- name: install CPython 2.7
+  homebrew: name=python state=present
+
+- name: install libxml2
+  homebrew: name=libxml2 state=present
+
+- name: install libxslt
+  homebrew: name=libxslt state=present

@@ -3,28 +3,30 @@
 - name: set NodeJS download URL (Linux x86-64)
   set_fact:
     node_download_url: "https://nodejs.org/dist/v{{ nodejs_version }}/node-v{{ nodejs_version }}-linux-x64.tar.xz"
-    node_dest_path: "{{ ansible_env.PWD }}/node-v{{ nodejs_version }}.tar.xz"
     node_unarchived_path: "{{ ansible_env.PWD }}/node-v{{ nodejs_version }}-linux-x64"
   when: ansible_system == "Linux" and ansible_userspace_bits == "64"
 - name: download NodeJS (Linux x86)
   set_fact:
     node_download_url: "https://nodejs.org/dist/v{{ nodejs_version }}/node-v{{ nodejs_version }}-linux-x86.tar.xz"
-    node_dest_path: "{{ ansible_env.PWD }}/node-v{{ nodejs_version }}.tar.xz"
     node_unarchived_path: "{{ ansible_env.PWD }}/node-v{{ nodejs_version }}-linux-x86"
   when: ansible_system == "Linux" and ansible_userspace_bits == "32"
+- name: download NodeJS (OS X x86-64)
+  set_fact:
+    node_download_url: "https://nodejs.org/dist/v{{ nodejs_version }}/node-v{{ nodejs_version }}-darwin-x64.tar.xz"
+    node_unarchived_path: "{{ ansible_env.PWD }}/node-v{{ nodejs_version }}-darwin-x64"
+  when: ansible_system == "Mac" and ansible_userspace_bits == "64"
 
-# NOTE: we set "node_dest_path" above because OS X version will be .tar.gz
-# TODO: add download bits for OS X (and Windows???)
+# TODO: add download bits for Windows???
 
 # Download and Unarchive
 - name: download NodeJS
   get_url:
     url: "{{ node_download_url }}"
-    dest: "{{ node_dest_path }}"
+    dest: "{{ ansible_env.PWD }}/node-v{{ nodejs_version }}.tar.xz"
 - name: unarchive NodeJS
   unarchive:
     copy: no
-    src: "{{ node_dest_path }}"
+    src: "{{ ansible_env.PWD }}/node-v{{ nodejs_version }}.tar.xz"
     dest: "{{ ansible_env.PWD }}"
 - name: rename unarchived NodeJS directory
   command: mv "{{ node_unarchived_path }}" "{{ nodejs_dir }}"

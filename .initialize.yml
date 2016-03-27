@@ -16,6 +16,7 @@
 # TODO:
 # - finish these for Mac OS X:
 #   - Python
+#     - ensure Lychee's virtualenv uses homebrew Python
 #   - Git
 #   - NPM
 #   - watchman
