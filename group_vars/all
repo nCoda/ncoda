@@ -28,6 +28,8 @@ hg_repositories:
     - {"name": "hgdemo", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HG/hgdemo/"}
 
 path_watchman: "/usr/bin/watchman-make"
+path_to_nc: "{{ repository_root }}/nc"
+path_to_ncoda: "{{ repository_root }}/ncoda"
 fujian_start_script_rel: ".fujian.sh"
 fujian_start_script: "{{ repository_root }}/{{ fujian_start_script_rel }}"
 julius_electron_start_script_rel: ".julius-electron.py"

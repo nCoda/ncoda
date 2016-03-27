@@ -58,6 +58,7 @@ fi
 source ${VENV_PATH}/bin/activate
 pip install -U setuptools pip
 pip install -U "ansible<3"
+ansible-playbook -i .inventory .initialize.yml -t update_ncoda
 echo ""
 echo "Before you continue, make sure:"
 echo "- you can pull from Phabricator (if you pull this repository, you're good)"

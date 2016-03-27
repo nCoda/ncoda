@@ -1,4 +1,12 @@
 ---
+- name: install the "nc" program
+  template: src=nc.j2 dest={{ path_to_nc }} mode="u=rwx,g=rx,o=rx"
+- name: make a symlink from "ncoda" to "nc"
+  file:
+    src: "{{ path_to_nc }}"
+    dest: "{{ path_to_ncoda }}"
+    state: link
+
 - name: install the Fujian start script
   template: src=fujian.sh.j2 dest={{ fujian_start_script }} mode="u=rwx,g=rx,o=rx"
 

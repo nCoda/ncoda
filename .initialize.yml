@@ -10,7 +10,7 @@
     - { role: lychee, tags: ["update", "update_lychee"] }
     - { role: julius, tags: ["update", "update_julius"] }
     - watchman
-    - nc_scripts
+    - { role: nc_scripts, tags: ["update", "update_ncoda"] }
 
 # TODO:
 # - finish watchman
@@ -21,5 +21,3 @@
 #   - activate [lychee|ansible|julius] (activate which virtualenv? Default lychee. Or export aliases for "node" and "npm")
 #
 # - consider git hooks that tell you when your dependencies are out-of-sync
-# - generate the "nc" file itself with Ansible, first from the "init.sh" then from "nc update ncoda"
-#   - update the "update" command with a thing to regenerate the "ncoda" scripts
