@@ -7,16 +7,27 @@
 
   roles:
     - repositories
+    - python
     - { role: lychee, tags: ["update", "update_lychee"] }
     - { role: julius, tags: ["update", "update_julius"] }
     - watchman
     - { role: nc_scripts, tags: ["update", "update_ncoda"] }
 
 # TODO:
-# - finish watchman
-# - template script for the "nc" commands below
+# - finish these for Mac OS X:
+#   - Python
+#   - Git
+#   - NPM
+#   - watchman
+#   - general testing
+# - finish these for Windows:
+#   - Python
+#   - Git
+#   - NPM
+#   - watchman
+#   - general testing
 #
-# - in the "nc" command:
+# - advanced additions for the "nc" command:
 #   - restart [fujian|julius] (default "all")
 #   - activate [lychee|ansible|julius] (activate which virtualenv? Default lychee. Or export aliases for "node" and "npm")
 #
