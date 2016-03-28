@@ -2,4 +2,4 @@
 - include: python_linux.yml
   when: ansible_system == "Linux"
 - include: python_osx.yml
-  when: ansible_system == "Mac"
+  when: ansible_system == "Darwin"

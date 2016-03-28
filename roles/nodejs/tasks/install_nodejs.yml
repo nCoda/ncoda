@@ -14,7 +14,7 @@
   set_fact:
     node_download_url: "https://nodejs.org/dist/v{{ nodejs_version }}/node-v{{ nodejs_version }}-darwin-x64.tar.xz"
     node_unarchived_path: "{{ ansible_env.PWD }}/node-v{{ nodejs_version }}-darwin-x64"
-  when: ansible_system == "Mac" and ansible_userspace_bits == "64"
+  when: ansible_system == "Darwin" and ansible_userspace_bits == "64"
 
 # TODO: add download bits for Windows???
 
