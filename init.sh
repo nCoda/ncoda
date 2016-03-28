@@ -33,7 +33,7 @@ if [ ! -d "${VENV_PATH}" ]; then
 
     if (( $? == 0 )); then
         virtualenv --version
-        read -p "^ Does that say '1.x.y'? (y/n)  " -n 1 -r
+        read -p "^ Does that say '1.x.y' or higher? (y/n)  " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]
         then
