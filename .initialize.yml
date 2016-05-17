@@ -9,6 +9,7 @@
     - repositories
     - python
     - { role: lychee, tags: ["update", "update_lychee"] }
+    - hgdemo
     - nodejs
     - { role: julius, tags: ["update", "update_julius"] }
     - watchman

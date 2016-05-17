@@ -14,6 +14,7 @@ ansible_venv_dir_rel: ansible-venv
 ansible_venv_dir: "{{ repository_root }}/{{ ansible_venv_dir_rel }}"
 lychee_venv_dir_rel: lychee-venv
 lychee_venv_dir: "{{ repository_root }}/{{ lychee_venv_dir_rel }}"
+hgdemo_dir: "{{ repo_directory }}/hgdemo"
 nodejs_dir: "{{ repository_root }}/nodejs-{{ nodejs_version }}"
 node_path: "{{ nodejs_dir }}/bin/node"
 npm_path: "{{ nodejs_dir }}/bin/npm"
@@ -25,7 +26,8 @@ git_repositories:
     - {"name": "fujian", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/FJ/fujian.git"}
 
 hg_repositories:
-    - {"name": "hgdemo", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HG/hgdemo/"}
+    - {"name": "ShelfExtender", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/SHELF/ShelfEx/"}
+    - {"name": "hgdemo_config", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HGC/hgdemo_config/"}
 
 path_to_nc: "{{ repository_root }}/nc"
 path_to_ncoda: "{{ repository_root }}/ncoda"
