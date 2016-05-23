@@ -1,5 +1,5 @@
 ---
-- name: install Julius NPM libraries
+- name: install Julius dependencies from NPM
   npm:
     executable: "{{ npm_path }}"
     path: "{{ repo_directory }}/julius"
