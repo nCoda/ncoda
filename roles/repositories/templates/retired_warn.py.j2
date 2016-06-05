@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Compatible with both Python 2 and 3?
+#
+# NOTE: this file is managed by Ansible; manual changes *will* be overwritten
+
+import os.path
+
+{% for repo_name in retired_repos %}
+if os.path.exists('{{ repo_directory }}/{{ repo_name }}'):
+    print("'{{ repo_name }}' repository was retired but still exists in '{{ repo_directory_rel }}'")
+    print("    You may safely remove that directory if you wish.\n")
+
+{% endfor %}

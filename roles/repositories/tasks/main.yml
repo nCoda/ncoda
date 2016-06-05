@@ -1,6 +1,6 @@
 ---
 - name: make a gitignore file
-  template: src=gitignore.j2 dest={{ ansible_env.PWD }}/.gitignore
+  template: src=gitignore.j2 dest={{ repository_root }}/.gitignore
 - name: install Git
   package: name=git state=present
 - name: install Mercurial
@@ -8,3 +8,15 @@
 
 - include: init.yml
   when: repo_stage == 'init'
+
+- name: generate "retired_warn" script
+  template:
+    src: retired_warn.py.j2
+    dest: "{{ retired_warn_path }}"
+    mode: u=rwx,g=rx,o=
+- name: detect retired repositories still present
+  shell: "python {{ retired_warn_path }}"
+  register: retired_repos_return
+- name: warn about retired repositories still present
+  debug: msg={{ retired_repos_return.stdout }}
+  when: retired_repos_return.stdout

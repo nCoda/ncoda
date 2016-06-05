@@ -19,6 +19,8 @@ hgdemo_dir: "{{ repo_directory }}/hgdemo"
 nodejs_dir: "{{ repository_root }}/nodejs-{{ nodejs_version }}"
 node_path: "{{ nodejs_dir }}/bin/node"
 npm_path: "{{ nodejs_dir }}/bin/npm"
+retired_warn_file: .retired_warn.py
+retired_warn_path: "{{ repository_root }}/{{ retired_warn_file }}"
 
 git_repositories:
     - {"name": "mercurial-hug", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/10/mercurial-hug.git"}
@@ -29,6 +31,9 @@ git_repositories:
 hg_repositories:
     - {"name": "ShelfExtender", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/SHELF/ShelfEx/"}
     - {"name": "hgdemo_config", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HGC/hgdemo_config/"}
+
+retired_repos:
+    - boring_placeholder_that_doesnt_exist
 
 path_to_nc: "{{ repository_root }}/nc"
 path_to_ncoda: "{{ repository_root }}/ncoda"
