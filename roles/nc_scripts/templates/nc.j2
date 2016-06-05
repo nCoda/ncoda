@@ -89,6 +89,12 @@ case $1 in
         esac
     ;;
 
+    "fetch")
+        echo "Fetching remote changes for all repositories"
+        source {{ ansible_venv_dir }}/bin/activate
+        ansible-playbook -i .inventory .initialize.yml -t fetch
+    ;;
+
     *)
 printf "nc: program does this
 
@@ -104,6 +110,8 @@ Commands:
 - update [julius|lychee|nc|all] (default 'all') Update, upgrade, or
   upgrade                 synchronize dependencies for these softwares.
   sync
+- fetch                   Fetch remote chagnes for all repositories, but
+                          do not update the working copy.
 \n"
 ;;
 esac

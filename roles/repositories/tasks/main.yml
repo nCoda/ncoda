@@ -9,6 +9,9 @@
 - include: init.yml
   when: repo_stage == 'init'
 
+- include: fetch.yml
+  when: repo_stage == 'fetch'
+
 - name: generate "retired_warn" script
   template:
     src: retired_warn.py.j2

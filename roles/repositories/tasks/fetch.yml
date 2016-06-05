@@ -1,0 +1,12 @@
+---
+- name: update the Git repositories
+  command: "git fetch"
+  args:
+    chdir: "{{ repo_directory }}/{{ item.name }}"
+  with_items: "{{ git_repositories }}"
+
+- name: update the Mercurial repositories
+  command: "hg pull"
+  args:
+    chdir: "{{ repo_directory }}/{{ item.name }}"
+  with_items: "{{ hg_repositories }}"
