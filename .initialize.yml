@@ -6,7 +6,7 @@
   connection: local
 
   roles:
-    - repositories
+    - { role: repositories, repo_stage: 'init' }
     - python
     - { role: lychee, tags: ["update", "update_lychee"] }
     - hgdemo

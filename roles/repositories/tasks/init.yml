@@ -1,6 +1,4 @@
 ---
-# NOTE: this playbook is for repo initialization; it's not friendly if someone's already developing
-
 - name: make the repositories directory
   file: name={{ repo_directory }} state=directory
 
@@ -8,7 +6,8 @@
   git:
     repo: "{{ item.repo }}"
     dest: "{{ repo_directory }}/{{ item.name }}"
-    force: yes
+    force: no
+    update: no
     recursive: yes
   with_items: "{{ git_repositories }}"
 
@@ -16,4 +15,6 @@
   hg:
     repo: "{{ item.repo }}"
     dest: "{{ repo_directory }}/{{ item.name }}"
+    force: no
+    update: no
   with_items: "{{ hg_repositories }}"

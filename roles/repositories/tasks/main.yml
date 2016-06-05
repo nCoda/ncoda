@@ -6,11 +6,5 @@
 - name: install Mercurial
   pip: name=Mercurial version={{ hg_version }} state=present
 
-# TODO: we should check each repository individually, to see if it was already cloned
-- name: see whether the repositories were cloned
-  stat: path={{ repo_directory }}
-  register: repodir_stat
 - include: init.yml
-  when: not repodir_stat.stat.exists
-- include: update.yml
-  when: repodir_stat.stat.exists
+  when: repo_stage == 'init'
