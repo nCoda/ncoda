@@ -13,4 +13,4 @@
   file: path={{ hgdemo_dir }} state=absent
 
 - name: move generated hgdemo into place
-  command: mv {{ repo_directory }}/hgdemo_config {{ hgdemo_dir }}
+  command: mv {{ repo_directory }}/hgdemo_config/repo {{ hgdemo_dir }}

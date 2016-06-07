@@ -10,10 +10,9 @@ case $1 in
     ;;
 
     "reset")
-        printf "Resetting 'hgdemo' test MEI repository to a known-good state.\n\n"
+        printf "Regenerating 'hgdemo' test MEI repository.\n\n"
         source {{ ansible_venv_dir }}/bin/activate
-        cd {{ repo_directory }}/hgdemo
-        hg update -C {{ hgdemo_clean_revision_hash }}
+        ansible-playbook -i .inventory .initialize.yml -t reset
     ;;
 
     "run")
