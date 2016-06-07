@@ -1,8 +1,28 @@
 ---
-- name: see whether "watchman" is installed
+# add distribution-specific repositories
+- name: (yum) add the "nCoda Watchman" repository
+  yum_repository:
+    name: 'ncoda_watchman'
+    description: 'nCoda Watchman'
+    baseurl: http://download.opensuse.org/repositories/home:/crantila:/watchman/CentOS_7/
+    gpgcheck: yes
+    gpgkey: http://download.opensuse.org/repositories/home:/crantila:/watchman/CentOS_7/repodata/repomd.xml.key
+    enabled: yes
+  become: yes
+  become_method: sudo
+  when: ansible_os_family == 'RedHat'
+
+# detect whether it's already installed
+- name: detect if Watchman is already installed
+  shell: 'which watchman'
+  register: watchman
+  ignore_errors: True
+
+# if it's not installed, try installing it from a package manager
+- name: try to install "watchman"
   package: name=watchman state=present
+  when: watchman.stdout == ''
 
-# TODO: use my OBS repository for Linux
-# https://build.opensuse.org/package/show/home:crantila:watchman/watchman
-
-# TODO: or compile it ourselves, which will also work for OS X?
+- name: set the detected path to Watchman, if possible
+  set_fact: path_to_watchman={{ watchman.stdout }}
+  when: watchman.stdout != ''
