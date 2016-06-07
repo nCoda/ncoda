@@ -6,12 +6,13 @@
   connection: local
 
   roles:
-    - { role: repositories, repo_stage: 'init' }
-    - { role: repositories, repo_stage: 'fetch', tags: "fetch" }
-    - python
-    - { role: lychee, tags: ["update", "update_lychee"] }
-    - hgdemo
-    - nodejs
-    - { role: julius, tags: ["update", "update_julius"] }
-    - watchman
-    - { role: nc_scripts, tags: ["update", "update_ncoda"] }
+    - { role: repositories, repo_stage: 'init', tags: 'init' }
+    - { role: repositories, repo_stage: 'fetch', tags: 'fetch' }
+    - { role: repositories, repo_stage: 'pull', tags: 'pull' }
+    - { role: python, tags: 'init' }
+    - { role: lychee, tags: ['update', 'update_lychee', 'init'] }
+    - { role: hgdemo, tags: 'init' }
+    - { role: nodejs, tags: 'init' }
+    - { role: julius, tags: ['update', 'update_julius', 'init'] }
+    - { role: watchman, tags: 'init' }
+    - { role: nc_scripts, tags: ['update', 'update_ncoda', 'init'] }

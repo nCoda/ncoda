@@ -6,7 +6,7 @@ case $1 in
     "init"|"initialize")
         source {{ ansible_venv_dir }}/bin/activate
         ansible-playbook -i .inventory .ansible.yml
-        ansible-playbook -i .inventory .initialize.yml
+        ansible-playbook -i .inventory .initialize.yml -t init
     ;;
 
     "reset")
@@ -95,6 +95,12 @@ case $1 in
         ansible-playbook -i .inventory .initialize.yml -t fetch
     ;;
 
+    "pull")
+        echo "Updating all repositories with remote changes"
+        source {{ ansible_venv_dir }}/bin/activate
+        ansible-playbook -i .inventory .initialize.yml -t pull
+    ;;
+
     *)
 printf "nc: program does this
 
@@ -110,8 +116,10 @@ Commands:
 - update [julius|lychee|nc|all] (default 'all') Update, upgrade, or
   upgrade                 synchronize dependencies for these softwares.
   sync
-- fetch                   Fetch remote chagnes for all repositories, but
+- fetch                   Fetch remote changes for all repositories, but
                           do not update the working copy.
+- pull                    Fetch remote changes for all repositories AND
+                          update the working copy.
 \n"
 ;;
 esac
