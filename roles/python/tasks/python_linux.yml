@@ -5,6 +5,7 @@
 
 - name: install libxml/libxslt for lxml (RedHat family)
   package: name={{ item }} state=present
+  become: yes
   when: ansible_os_family == "RedHat"
   with_items:
     - libxml2
@@ -13,6 +14,7 @@
     - libxslt-devel
 - name: install libxml/libxslt for lxml (Debian family)
   package: name={{ item }} state=present
+  become: yes
   when: ansible_os_family == "Debian"
   with_items:
     - libxml2
