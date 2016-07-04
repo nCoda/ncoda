@@ -47,3 +47,6 @@ julius_http_start_script: "{{ repository_root }}/{{ julius_http_start_script_rel
 julius_http_port: 8000
 
 hgdemo_clean_revision_hash: d16397e87778
+
+# we'll know whether the Watchman path was set
+path_to_watchman: "canary"

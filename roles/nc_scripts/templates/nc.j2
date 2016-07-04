@@ -9,116 +9,18 @@ case $1 in
         ansible-playbook -i .inventory .initialize.yml -t init
     ;;
 
-    "reset")
-        printf "Regenerating 'hgdemo' test MEI repository.\n\n"
-        source {{ ansible_venv_dir }}/bin/activate
-        ansible-playbook -i .inventory .initialize.yml -t reset
-    ;;
-
-    "run")
-        case $2 in
-            "http")
-                echo "Starting Julius via web server"
-                exec {{ julius_http_start_script }}
-            ;;
-            *)
-                echo "Starting Julius in Electron"
-                exec {{ julius_electron_start_script }}
-            ;;
-        esac
-    ;;
-
-    "test")
-        case $2 in
-            "julius")
-                echo "Running the Julius test suite"
-                cd {{ repo_directory }}/julius
-                {{ npm_path }} test
-            ;;
-            "fujian")
-                echo "Running the Fujian test suite"
-                source {{ lychee_venv_dir }}/bin/activate
-                py.test {{ repo_directory }}/fujian
-            ;;
-            "lychee")
-                echo "Running the Lychee test suite"
-                source {{ lychee_venv_dir }}/bin/activate
-                py.test {{ repo_directory }}/lychee
-            ;;
-            "mercurial-hug")
-                echo "Running the Mercurial-Hug test suite"
-                source {{ lychee_venv_dir }}/bin/activate
-                py.test {{ repo_directory }}/mercurial-hug
-            ;;
-            *)
-                echo "Running all the test suites"
-                cd {{ repo_directory }}/julius
-                {{ npm_path }} test
-                cd {{ repository_root }}
-                source {{ lychee_venv_dir }}/bin/activate
-                py.test {{ repo_directory }}/fujian
-                py.test {{ repo_directory }}/lychee
-                py.test {{ repo_directory }}/mercurial-hug
-            ;;
-        esac
-    ;;
-
-    "update"|"upgrade"|"sync")
-        case $2 in
-            "julius")
-                echo "Updating Julius's dependencies"
-                source {{ ansible_venv_dir }}/bin/activate
-                ansible-playbook -i .inventory .initialize.yml -t update_julius
-            ;;
-            "lychee")
-                echo "Updating Lychee's dependencies"
-                source {{ ansible_venv_dir }}/bin/activate
-                ansible-playbook -i .inventory .initialize.yml -t update_lychee
-            ;;
-            "ncoda"|"nc")
-                echo "Updating the 'nc' program (that's me!)"
-                source {{ ansible_venv_dir }}/bin/activate
-                ansible-playbook -i .inventory .initialize.yml -t update_ncoda
-            ;;
-            *)
-                echo "Updating all dependencies"
-                source {{ ansible_venv_dir }}/bin/activate
-                ansible-playbook -i .inventory .initialize.yml -t update
-            ;;
-        esac
-    ;;
-
-    "fetch")
-        echo "Fetching remote changes for all repositories"
-        source {{ ansible_venv_dir }}/bin/activate
-        ansible-playbook -i .inventory .initialize.yml -t fetch
-    ;;
-
-    "pull")
-        echo "Updating all repositories with remote changes"
-        source {{ ansible_venv_dir }}/bin/activate
-        ansible-playbook -i .inventory .initialize.yml -t pull
-    ;;
+{% if include_all_commands %}
+{% include 'nc_commands.j2' %}
+{% endif %}
 
     *)
-printf "nc: program does this
-
-Copyright 2016 Christopher Antila
-
-Commands:
----------
-- init                    Bootstrap the nCoda development environment.
-  initialize
-- run [electron|http]     Start Fujian/Lychee and Julius, either with
-                          'electron' (the default) or a web server.
-- test [julius|lychee|fujian|mercurial-hug]  Run an automated test suite.
-- update [julius|lychee|nc|all] (default 'all') Update, upgrade, or
-  upgrade                 synchronize dependencies for these softwares.
-  sync
-- fetch                   Fetch remote changes for all repositories, but
-                          do not update the working copy.
-- pull                    Fetch remote changes for all repositories AND
-                          update the working copy.
-\n"
+{% if include_all_commands %}
+printf "{% include 'nc_help_text.j2' %}
+\n\n"
 ;;
+{% else %}
+printf "{% include 'nc_init_help_text.j2' %}
+\n\n"
+;;
+{% endif %}
 esac

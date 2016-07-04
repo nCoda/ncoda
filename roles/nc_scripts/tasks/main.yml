@@ -1,5 +1,11 @@
 ---
 - block:
+  - name: we're not going to include all commands
+    set_fact: include_all_commands=False
+    when: path_to_watchman == 'canary'
+  - name: we're going to include all commands
+    set_fact: include_all_commands=True
+    when: path_to_watchman != 'canary'
   - name: install the "nc" program
     template: src=nc.j2 dest={{ path_to_nc }} mode="u=rwx,g=rx,o=rx"
   - name: make a symlink from "ncoda" to "nc"
