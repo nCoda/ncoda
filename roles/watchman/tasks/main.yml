@@ -1,28 +1,9 @@
 ---
-# add distribution-specific repositories
-- name: (yum) add the "nCoda Watchman" repository
-  yum_repository:
-    name: 'ncoda_watchman'
-    description: 'nCoda Watchman'
-    baseurl: http://download.opensuse.org/repositories/home:/crantila:/watchman/CentOS_7/
-    gpgcheck: yes
-    gpgkey: http://download.opensuse.org/repositories/home:/crantila:/watchman/CentOS_7/repodata/repomd.xml.key
-    enabled: yes
-  become: yes
-  become_method: sudo
+- include: yum.yml
   when: ansible_os_family == 'RedHat'
 
-# detect whether it's already installed
-- name: detect if Watchman is already installed
-  shell: 'which watchman'
-  register: watchman
-  ignore_errors: True
+- include: macos.yml
+  when: ansible_os_family == 'Darwin'
 
-# if it's not installed, try installing it from a package manager
-- name: try to install "watchman"
-  package: name=watchman state=present
-  when: watchman.stdout == ''
-
-- name: set the detected path to Watchman, if possible
-  set_fact: path_to_watchman={{ watchman.stdout }}
-  when: watchman.stdout != ''
+- include: else.yml
+  when: ansible_os_family != 'RedHat' and ansible_os_family != 'Darwin'

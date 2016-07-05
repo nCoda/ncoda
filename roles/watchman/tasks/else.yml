@@ -1,0 +1,10 @@
+---
+# For OSes not otherwise covered, try to find Watchman on the PATH
+- name: detect if Watchman is already installed
+  shell: 'which watchman'
+  register: watchman
+  ignore_errors: True
+
+- name: set the detected path to Watchman, if possible
+  set_fact: path_to_watchman={{ watchman.stdout }}
+  when: watchman.stdout != ''

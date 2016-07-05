@@ -1,0 +1,9 @@
+---
+- name: install Watchman
+  homebrew: name=watchman state=present
+
+- name: link Watchman
+  homebrew: name=watchman state=linked
+
+- name: set the path to Watchman
+  set_fact: path_to_watchman='/usr/bin/watchman'
