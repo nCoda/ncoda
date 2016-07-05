@@ -1,0 +1,5 @@
+ncoda Development Environment Setup Program
+===========================================
+
+When you first clone this repository, run "init.py" with the Python interpreter that you want to
+use for Lychee development. Then follow its instructions.
