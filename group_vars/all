@@ -4,7 +4,6 @@ nodejs_version: 5.10.0  # as per current version in Electron
 nodejs_old_versions:  # will be deleted
     - 5.1.0
     - 5.1.1
-python_version: 2.7
 
 # root directory of the "ncoda" repository
 repository_root: "{{ ansible_env.PWD }}"

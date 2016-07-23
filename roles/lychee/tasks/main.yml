@@ -4,7 +4,7 @@
     virtualenv: "{{ lychee_venv_dir }}"
     state: latest
     name: "pip setuptools"
-    virtualenv_python: "{{ ansible_env._ }}"
+    virtualenv_python: "{{ lychee_venv_python }}"
 
 - name: install straight-forward requirements
   pip: virtualenv={{ lychee_venv_dir }} requirements={{ repo_directory }}/lychee/ncoda_requirements.txt

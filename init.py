@@ -2,6 +2,7 @@
 #
 # Copyright 2016 Christopher Antila
 
+import argparse
 import os.path
 import subprocess
 import sys
@@ -11,16 +12,29 @@ VENV_PROMPT = 'ncoda-ansible '
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--lychee_python', help='The Python interpreter to use for Lychee')
+    args = parser.parse_args()
+
+    # Verify "lychee_python" argument
+    ansible_python = sys.executable
+    lychee_python = sys.executable
+    if args.lychee_python:
+        if not os.path.exists(args.lychee_python):
+            print('The "lychee_python" file does not exist.')
+            raise SystemExit(1)
+        elif not os.path.isfile(args.lychee_python):
+            print('The "lychee_python" file is not a file.')
+            raise SystemExit(1)
+        else:
+            lychee_python = args.lychee_python
+
     # See if the virtualenv already exists, in which case they shouldn't us this script!
     if not os.path.exists(VENV_PATH):
         # find the Python executable we'll use
-        if sys.version.startswith('2.7') and 'PyPy' not in sys.version:
-            python_exec = sys.executable
-        else:
+        if (not sys.version.startswith('2.7')) or ('PyPy' in sys.version):
             print('Please start this script with CPython 2.7')
             raise SystemExit(1)
-            # TODO: take the interpreter from the commandline
-            # TODO: try to look for an interpreter ourselves
 
         # find the virtualenv executable we'll use
         try:
@@ -35,7 +49,7 @@ def main():
             output = subprocess.check_output([
                 virtualenv_exec,
                 '-p',
-                python_exec,
+                ansible_python,
                 '--prompt={0}'.format(VENV_PROMPT),
                 VENV_PATH
             ])
@@ -56,6 +70,10 @@ def main():
         print('Failed while installing Ansible')
         raise SystemExit(1)
 
+    # Set the Ansible variables file with the path to Lychee's Python interpreter.
+    with open('.python_vars.yml', 'w') as vars_file:
+        vars_file.write('---\nlychee_venv_python: "{0}"\n'.format(lychee_python))
+
     try:
         subprocess.check_call('{0}; ansible-playbook -i .inventory .initialize.yml -t install_ncoda'.format(activate), shell=True)
     except subprocess.CalledProcessError:
@@ -75,7 +93,9 @@ Before you continue, make sure you can pull the following repositories from Phab
 - mercurial-hug
 - ShelfExtender
 
-Then run this command: './nc init'
+Then run these commands:
+    $ ./nc init
+    $ ./nc test
 ''')
 
 
