@@ -2,6 +2,7 @@
 - name: make a gitignore file
   template: src=gitignore.j2 dest={{ repository_root }}/.gitignore
 - name: install Git
+  become: yes
   package: name=git state=present
 - name: install Mercurial
   pip: name=Mercurial version={{ hg_version }} state=present
