@@ -3,6 +3,8 @@ ncoda Development Environment Setup Program
 
 When you first clone this repository, run "init.py" with a CPython 2.7 interepreter.
 
+Note: the "ncoda" program creates and activates virtualenvs; do not create one yourself.
+
 If you want to use another Python interpreter for Lychee development, use the "lychee_python"
 commandline flag. For example:
 
