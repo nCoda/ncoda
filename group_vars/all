@@ -26,10 +26,8 @@ git_repositories:
     - {"name": "lychee", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/LC/lychee.git"}
     - {"name": "julius", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/JL/julius.git"}
     - {"name": "fujian", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/FJ/fujian.git"}
-
-hg_repositories:
-    - {"name": "ShelfExtender", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/SHELF/ShelfEx/"}
-    - {"name": "hgdemo_config", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HGC/hgdemo_config/"}
+    - {"name": "hgdemo_config", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HGC/hgdemo_config.git"}
+    - {"name": "ShelfExtender", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/SHELF/ShelfEx.git"}
 
 retired_repos:
     - boring_placeholder_that_doesnt_exist

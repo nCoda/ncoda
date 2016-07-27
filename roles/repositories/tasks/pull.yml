@@ -5,10 +5,10 @@
     chdir: "{{ repo_directory }}/{{ item.name }}"
   with_items: "{{ git_repositories }}"
 
-- name: pull and update the Mercurial repositories
-  hg:
-    repo: "{{ item.repo }}"
-    dest: "{{ repo_directory }}/{{ item.name }}"
-    force: no
-    update: yes
-  with_items: "{{ hg_repositories }}"
+# - name: pull and update the Mercurial repositories
+#   hg:
+#     repo: "{{ item.repo }}"
+#     dest: "{{ repo_directory }}/{{ item.name }}"
+#     force: no
+#     update: yes
+#   with_items: "{{ hg_repositories }}"

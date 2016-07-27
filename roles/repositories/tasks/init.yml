@@ -9,12 +9,13 @@
     force: no
     update: no
     recursive: yes
+    version: main
   with_items: "{{ git_repositories }}"
 
-- name: clone the Mercurial repositories
-  hg:
-    repo: "{{ item.repo }}"
-    dest: "{{ repo_directory }}/{{ item.name }}"
-    force: no
-    update: no
-  with_items: "{{ hg_repositories }}"
+# - name: clone the Mercurial repositories
+#   hg:
+#     repo: "{{ item.repo }}"
+#     dest: "{{ repo_directory }}/{{ item.name }}"
+#     force: no
+#     update: no
+#   with_items: "{{ hg_repositories }}"

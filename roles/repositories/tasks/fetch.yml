@@ -5,8 +5,8 @@
     chdir: "{{ repo_directory }}/{{ item.name }}"
   with_items: "{{ git_repositories }}"
 
-- name: pull the Mercurial repositories
-  command: "hg pull"
-  args:
-    chdir: "{{ repo_directory }}/{{ item.name }}"
-  with_items: "{{ hg_repositories }}"
+# - name: pull the Mercurial repositories
+#   command: "hg pull"
+#   args:
+#     chdir: "{{ repo_directory }}/{{ item.name }}"
+#   with_items: "{{ hg_repositories }}"
