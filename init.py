@@ -59,13 +59,13 @@ def main():
     activate = 'source {0}/bin/activate'.format(VENV_PATH)
 
     try:
-        subprocess.check_call('{0}; pip install -U setuptools pip'.format(activate), shell=True)
+        subprocess.check_call(['env', 'bash', '-c', '{0}; pip install -U setuptools pip'.format(activate)])
     except subprocess.CalledProcessError:
         print('Failed while upgrading setuptools and pip')
         raise SystemExit(1)
 
     try:
-        subprocess.check_call('{0}; pip install -U "ansible<2.2"'.format(activate), shell=True)
+        subprocess.check_call(['env', 'bash', '-c', '{0}; pip install -U "ansible<2.2"'.format(activate)])
     except subprocess.CalledProcessError:
         print('Failed while installing Ansible')
         raise SystemExit(1)
@@ -75,7 +75,7 @@ def main():
         vars_file.write('---\nlychee_venv_python: "{0}"\n'.format(lychee_python))
 
     try:
-        subprocess.check_call('{0}; ansible-playbook -i .inventory .initialize.yml -t install_ncoda'.format(activate), shell=True)
+        subprocess.check_call(['env', 'bash', '-c', '{0}; ansible-playbook -i .inventory .initialize.yml -t install_ncoda'.format(activate)])
     except subprocess.CalledProcessError:
         print('Failed while running "ansible-playbook"')
         raise SystemExit(1)
