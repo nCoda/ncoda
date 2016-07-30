@@ -14,4 +14,4 @@
   yum: name=watchman state=present
 
 - name: set the path to Watchman
-  set_fact: path_to_watchman='/usr/bin/watchman'
+  set_fact: path_to_watchman='/usr/bin/watchman-make'

@@ -1,7 +1,7 @@
 ---
 # For OSes not otherwise covered, try to find Watchman on the PATH
 - name: detect if Watchman is already installed
-  shell: 'which watchman'
+  shell: 'which watchman-make'
   register: watchman
   ignore_errors: True
 
