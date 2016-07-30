@@ -122,11 +122,17 @@ def the_script():
 
     finally:
         for each_instance in subprocesses:
-            # NB: in Python 3, this should be in a try/except because it might raise a
-            #     ProcessLookupError if the process has already terminated
-            each_instance.terminate()
-            print('Terminated subprocess with PID {}'.format(each_instance.pid))
-            each_instance.wait()
+            # NB: in Python 3, this would raise ProcessLookupError
+            try:
+                each_instance.terminate()
+                print('Terminated subprocess with PID {}'.format(each_instance.pid))
+                each_instance.wait()
+            except OSError as exc:
+                # if it says "No such process" then it already quit, so we're fine
+                if 'No such process' in exc.args[1]:
+                    print('Process {} already exited'.format(each_instance.pid))
+                else:
+                    print('Could not terminate subprocess with PID {}'.format(each_instance.pid))
 
 
 if '__main__' == __name__:
