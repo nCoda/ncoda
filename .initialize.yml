@@ -16,5 +16,5 @@
     - { role: hgdemo, tags: ['reset', 'init'] }
     - { role: nodejs, tags: 'init' }
     - { role: julius, tags: ['update', 'update_julius', 'init'] }
-    - { role: watchman, tags: 'init' }
+    - { role: watchman, tags: ['init', 'update_ncoda'] }
     - { role: nc_scripts, tags: ['update', 'update_ncoda', 'init'] }
