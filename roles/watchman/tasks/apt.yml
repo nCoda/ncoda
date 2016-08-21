@@ -8,16 +8,18 @@
 
 - name: add the "nCoda Watchman" package signing key
   apt_key: url={{ deb_repo_url }}/Release.key state=present
+  become: yes
 
 - name: add the "nCoda Watchman" repository
   apt_repository:
     filename: ncoda_watchman
-    repo: "deb {{ deb_repo_url }} ./"
+    repo: "deb {{ deb_repo_url }} /"
     state: present
   become: yes
 
 - name: install Watchman
-  yum: name=watchman state=present
+  apt: name=watchman state=present
+  become: yes
 
 - name: set the path to Watchman
   set_fact: path_to_watchman='/usr/bin/watchman-make'
