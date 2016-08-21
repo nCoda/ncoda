@@ -46,3 +46,6 @@ julius_http_port: 8000
 # We'll know whether the Watchman path was set...
 # NOTE: this should actually be the path to "watchman-make"
 path_to_watchman: "canary"
+
+# the public SSH key used to identify Phabricator
+phabricator_keyscan: "goldman.ncodamusic.org ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAC/0QaThEyaTY02PuOfR2STgKXcvLb99M272X90KhwCq+FdN9uZPwGW9FQ5D7NTose3UGIQ5l5zBMiPTyNeJB+FzQDddgVV6teORsySXsEqzXC04oNGpPqX2Hu3zwPJs0/V1MBfLDs/Pd6d1xVFlU7havy1x84cYcVfRUkj4WiZ1VOz4A=="

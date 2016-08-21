@@ -7,6 +7,18 @@
 - name: install Mercurial
   pip: name=Mercurial version={{ hg_version }} state=present
 
+- name: see whether the user has Phabricator's SSH host key
+  command: ssh-keygen -F goldman.ncodamusic.org
+  ignore_errors: yes
+  register: keycheck
+- name: add Phabricator's SSH host key to the "known_hosts" file
+  lineinfile:
+    dest: "~/.ssh/known_hosts"
+    insertafter: EOF
+    line: "{{ phabricator_keyscan }}"
+    state: present
+  when: keycheck.stdout|length == 0
+
 - include: init.yml
   when: repo_stage == 'init'
 
