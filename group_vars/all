@@ -29,13 +29,15 @@ git_repositories:
     - {"name": "mercurial-hug", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HUG/mercurial-hug.git"}
     - {"name": "ShelfExtender", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/SHELF/ShelfEx.git"}
 
+# These URLs are used in CI and for people without Phabricator access.
+# The "recursive" bit helps avoid cloning submodules where they're not needed.
 git_repositories_http:
-    - {"name": "fujian", "repo": "https://github.com/nCoda/fujian.git"}
-    - {"name": "hgdemo_config", "repo": "https://github.com/nCoda/hgdemo_config.git"}
-    - {"name": "julius", "repo": "https://github.com/nCoda/julius.git"}
-    - {"name": "lychee", "repo": "https://github.com/nCoda/lychee.git"}
-    - {"name": "mercurial-hug", "repo": "https://github.com/nCoda/mercurial-hug.git"}
-    - {"name": "ShelfExtender", "repo": "https://github.com/nCoda/ShelfExtender.git"}
+    - {"name": "fujian", "repo": "https://github.com/nCoda/fujian.git", "recursive": "no"}
+    - {"name": "hgdemo_config", "repo": "https://github.com/nCoda/hgdemo_config.git", "recursive": "no"}
+    - {"name": "julius", "repo": "https://github.com/nCoda/julius.git", "recursive": "yes"}
+    - {"name": "lychee", "repo": "https://github.com/nCoda/lychee.git", "recursive": "no"}
+    - {"name": "mercurial-hug", "repo": "https://github.com/nCoda/mercurial-hug.git", "recursive": "no"}
+    - {"name": "ShelfExtender", "repo": "https://github.com/nCoda/ShelfExtender.git", "recursive": "no"}
 
 retired_repos:
     - boring_placeholder_that_doesnt_exist
