@@ -20,7 +20,7 @@
     dest: "{{ repo_directory }}/{{ item.name }}"
     force: no
     update: no
-    recursive: yes
+    recursive: no
     version: main
   with_items: "{{ git_repositories_http }}"
   when: ssh_init.failed is defined
