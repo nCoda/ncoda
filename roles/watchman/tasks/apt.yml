@@ -1,0 +1,23 @@
+---
+- name: set repository URL (Ubuntu)
+  set_fact: deb_repo_url="http://download.opensuse.org/repositories/home:/crantila:/watchman/xUbuntu_{{ ansible_lsb.release }}/"
+  when: ansible_lsb.id == 'Ubuntu'
+- name: set repository URL (Debian)
+  set_fact: deb_repo_url="http://download.opensuse.org/repositories/home:/crantila:/watchman/Debian_{{ ansible_lsb.release }}/"
+  when: ansible_lsb.id == 'Debian'
+
+- name: add the "nCoda Watchman" package signing key
+  apt_key: url={{ deb_repo_url }}/Release.key state=present
+
+- name: add the "nCoda Watchman" repository
+  apt_repository:
+    filename: ncoda_watchman
+    repo: "deb {{ deb_repo_url }} ./"
+    state: present
+  become: yes
+
+- name: install Watchman
+  yum: name=watchman state=present
+
+- name: set the path to Watchman
+  set_fact: path_to_watchman='/usr/bin/watchman-make'

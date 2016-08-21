@@ -2,8 +2,11 @@
 - include: yum.yml
   when: ansible_os_family == 'RedHat'
 
+- include: apt.yml
+  when: ansible_os_family == 'Debian
+
 - include: macos.yml
   when: ansible_os_family == 'Darwin'
 
 - include: else.yml
-  when: ansible_os_family != 'RedHat' and ansible_os_family != 'Darwin'
+  when: ansible_os_family != 'RedHat' and ansible_os_family != 'Darwin' and ansible_os_family != 'Debian
