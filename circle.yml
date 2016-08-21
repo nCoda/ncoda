@@ -1,0 +1,14 @@
+machine:
+  python:
+    version: 2.7.11
+
+dependencies:
+  pre:
+    - sudo apt-get install libffi-dev openssl-dev
+  override:
+    - python init.py
+    - ./nc init
+
+test:
+  override:
+    - ./nc test
