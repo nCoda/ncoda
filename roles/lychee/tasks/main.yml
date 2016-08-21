@@ -7,14 +7,12 @@
     state: latest
     name: "pip setuptools"
 
-- name: install straight-forward requirements
+- name: install requirements from PyPI
   pip: virtualenv={{ lychee_venv_dir }} requirements={{ repo_directory }}/lychee/ncoda_requirements.txt
 
-- name: install Mercurial-Hug
-  pip: virtualenv={{ lychee_venv_dir }} name={{ repo_directory }}/mercurial-hug state=present extra_args="-e"
-
-- name: install Fujian
-  pip: virtualenv={{ lychee_venv_dir }} name={{ repo_directory }}/fujian state=present extra_args="-e"
-
-- name: install Lychee
-  pip: virtualenv={{ lychee_venv_dir }} name={{ repo_directory }}/lychee state=present extra_args="-e"
+- name: install locally-cloned packages
+  pip: virtualenv={{ lychee_venv_dir }} name={{ repo_directory }}/{{ item }} state=present extra_args="-e"
+  with_items:
+    - fujian
+    - lychee
+    - mercurial-hug
