@@ -4,7 +4,7 @@ machine:
 
 dependencies:
   pre:
-    - sudo apt-get install libffi-dev openssl-dev
+    - sudo apt-get update; sudo apt-get install libffi-dev libssl-dev
   override:
     - python init.py
     - ./nc init
