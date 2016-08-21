@@ -2,7 +2,7 @@
 - name: make the repositories directory
   file: name={{ repo_directory }} state=directory
 
-- name: clone the Git repositories
+- name: clone the Git repositories (read/write)
   git:
     repo: "{{ item.repo }}"
     dest: "{{ repo_directory }}/{{ item.name }}"
@@ -11,6 +11,19 @@
     recursive: yes
     version: main
   with_items: "{{ git_repositories }}"
+  ignore_errors: yes
+  register: ssh_init
+
+- name: clone the Git repositories (read-only)
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ repo_directory }}/{{ item.name }}"
+    force: no
+    update: no
+    recursive: yes
+    version: main
+  with_items: "{{ git_repositories_http }}"
+  when: ssh_init.failed is defined
 
 # - name: clone the Mercurial repositories
 #   hg:

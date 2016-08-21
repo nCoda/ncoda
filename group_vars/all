@@ -22,12 +22,20 @@ retired_warn_file: .retired_warn.py
 retired_warn_path: "{{ repository_root }}/{{ retired_warn_file }}"
 
 git_repositories:
-    - {"name": "mercurial-hug", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/10/mercurial-hug.git"}
-    - {"name": "lychee", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/LC/lychee.git"}
-    - {"name": "julius", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/JL/julius.git"}
     - {"name": "fujian", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/FJ/fujian.git"}
     - {"name": "hgdemo_config", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HGC/hgdemo_config.git"}
+    - {"name": "julius", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/JL/julius.git"}
+    - {"name": "lychee", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/LC/lychee.git"}
+    - {"name": "mercurial-hug", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/HUG/mercurial-hug.git"}
     - {"name": "ShelfExtender", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/SHELF/ShelfEx.git"}
+
+git_repositories_http:
+    - {"name": "fujian", "repo": "https://github.com/nCoda/fujian.git"}
+    - {"name": "hgdemo_config", "repo": "https://github.com/nCoda/hgdemo_config.git"}
+    - {"name": "julius", "repo": "https://github.com/nCoda/julius.git"}
+    - {"name": "lychee", "repo": "https://github.com/nCoda/lychee.git"}
+    - {"name": "mercurial-hug", "repo": "https://github.com/nCoda/mercurial-hug.git"}
+    - {"name": "ShelfExtender", "repo": "https://github.com/nCoda/ShelfExtender.git"}
 
 retired_repos:
     - boring_placeholder_that_doesnt_exist
