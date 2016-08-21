@@ -28,9 +28,10 @@ _COMPILE_WITH_LESSC = [
      '{{ repo_directory }}/julius/css/ncoda/main.css'),
 ]
 
-_PATH_TO_WATCHIFY = '{{ repo_directory }}/julius/node_modules/.bin/watchify'
-_PATH_TO_LESSC = '{{ repo_directory }}/julius/node_modules/.bin/lessc'
 _PATH_TO_ELECTRON = '{{ repo_directory }}/julius/node_modules/.bin/electron'
+_PATH_TO_LESSC = '{{ repo_directory }}/julius/node_modules/.bin/lessc'
+_PATH_TO_NODE = '{{ node_path }}'
+_PATH_TO_WATCHIFY = '{{ repo_directory }}/julius/node_modules/.bin/watchify'
 _PATH_TO_WATCHMAN = '{{ path_to_watchman }}'
 
 
@@ -71,7 +72,7 @@ def the_script():
         for each_file in _COMPILE_WITH_WATCHIFY:
             print('Starting Watchify for {}'.format(each_file[0]))
             try:
-                kummand = [_PATH_TO_WATCHIFY, each_file[0], '-o', each_file[1], '--debug', '--ignore-missing']
+                kummand = [_PATH_TO_NODE, _PATH_TO_WATCHIFY, each_file[0], '-o', each_file[1], '--debug', '--ignore-missing']
                 subprocesses.append(subprocess.Popen(kummand))
             except subprocess.CalledProcessError as cperr:
                 print('Encountered the following error while starting Watchify:\n{}'.format(cperr))
@@ -81,7 +82,7 @@ def the_script():
         # first compile the files initially
         for each_file in _COMPILE_WITH_LESSC:
             try:
-                kummand = [_PATH_TO_LESSC, '--clean-css', '--source-map', each_file[1], each_file[2]]
+                kummand = [_PATH_TO_NODE, _PATH_TO_LESSC, '--clean-css', '--source-map', each_file[1], each_file[2]]
                 subprocess.check_output(kummand)
             except subprocess.CalledProcessError as cperr:
                 print('Encountered the following error while starting lessc:\n{}'.format(cperr))
@@ -94,7 +95,7 @@ def the_script():
         #  watchman-make --make path_to_lessc -p 'path_to_watch' -t '--clean-css compile_this compiled_path'
         #
         print('Starting Watchman for automatic LESS compilation.')
-        kummand = [_PATH_TO_WATCHMAN, '--make', '{}'.format(_PATH_TO_LESSC)]
+        kummand = [_PATH_TO_WATCHMAN, '--make', '"{0} {1}"'.format(_PATH_TO_NODE, _PATH_TO_LESSC)]
         for each_file in _COMPILE_WITH_LESSC:
             kummand.append('-p')
             kummand.append('{}'.format(each_file[0]))
