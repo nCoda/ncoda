@@ -6,7 +6,7 @@ dependencies:
   pre:
     - sudo apt-get update; sudo apt-get install libffi-dev libssl-dev
   override:
-    - python init.py
+    - /usr/bin/python init.py --lychee_python python
     - ./nc init
 
 test:
