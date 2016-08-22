@@ -1,9 +1,9 @@
 ---
-- name: install mercurial-hug
-  pip: virtualenv={{ ansible_venv_dir }} name={{ repo_directory }}/mercurial-hug state=present extra_args="-e"
-
-- name: install ShelfExtender
-  pip: virtualenv={{ ansible_venv_dir }} name={{ repo_directory }}/ShelfExtender state=present extra_args="-e"
+- name: install dependencies
+  pip: virtualenv={{ ansible_venv_dir }} name={{ repo_directory }}/{{ item }} state=present extra_args="-e"
+  with_items:
+    - mercurial-hug
+    - ShelfExtender
 
 # in case this fails, don't delete the previous hgdemo until after
 - name: generate the hgdemo repository
