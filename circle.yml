@@ -12,3 +12,8 @@ dependencies:
 test:
   override:
     - ./nc test
+
+deployment:
+  override:
+    - ./nc snapshot
+    - mv ncoda_snapshot.tar.xz $CIRCLE_ARTIFACTS
