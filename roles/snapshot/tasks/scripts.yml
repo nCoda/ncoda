@@ -1,0 +1,11 @@
+---
+- name: install the nCoda start script
+  template: src=run_ncoda.py.j2 dest={{ ncoda_start_script_path }} mode="u=rwx,g=rx,o=rx"
+
+- name: install the "nc" program
+  template: src=nc.j2 dest={{ path_to_nc }} mode="u=rwx,g=rx,o=rx"
+- name: make a symlink from "ncoda" to "nc"
+  file:
+    src: "nc"
+    dest: "{{ path_to_ncoda }}"
+    state: link

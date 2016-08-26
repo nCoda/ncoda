@@ -1,0 +1,23 @@
+---
+- name: clear previous snapshot
+  file: name={{ snapshot_dir }} state=absent
+
+- name: make new snapshot directory
+  file: name={{ snapshot_dir }} state=directory
+
+- include: "lychee.yml"
+- include: "julius.yml"
+
+- name: copy the "hgdemo" repository
+  command: cp -R {{ hgdemo_dir }} {{ snapshot_dir }}
+  args:
+    creates: "{{ snapshot_dir }}/hgdemo"
+
+- include: "scripts.yml"
+
+- name: rename the snapshot directory
+  command: mv {{ snapshot_dir }} {{ package_name }}
+- name: make the snapshot archive
+  command: tar -c -J -f '{{ package_name }}.tar.xz' '{{ package_name }}'
+- name: un-rename the snapshot directory
+  command: mv {{ package_name }} {{ snapshot_dir }}

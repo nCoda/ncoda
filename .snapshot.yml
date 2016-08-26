@@ -1,0 +1,9 @@
+---
+- name: Prepare a snapshot of the development environment.
+  hosts: localhost
+  connection: local
+  vars_files:
+    - .python_vars.yml
+
+  roles:
+    - snapshot

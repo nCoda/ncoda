@@ -1,0 +1,21 @@
+---
+# TODO: This is *almost* the same as the "lychee" task (except the local packages are installed
+#       by copying rather than with the "-e" flag). It would be good to deduplicate.
+
+- name: make the virtualenv
+  pip:
+    virtualenv: "{{ lychee_venv_dir }}"
+    virtualenv_command: "{{ ansible_venv_dir }}/bin/virtualenv"
+    virtualenv_python: "{{ lychee_venv_python }}"
+    state: latest
+    name: "pip setuptools"
+
+- name: install requirements from PyPI
+  pip: virtualenv={{ lychee_venv_dir }} requirements={{ repo_directory }}/lychee/ncoda_requirements.txt
+
+- name: install locally-cloned packages
+  pip: virtualenv={{ lychee_venv_dir }} name={{ repo_directory }}/{{ item }} state=present
+  with_items:
+    - fujian
+    - lychee
+    - mercurial-hug

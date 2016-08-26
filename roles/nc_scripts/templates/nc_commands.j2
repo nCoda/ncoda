@@ -88,3 +88,9 @@
         source {{ ansible_venv_dir }}/bin/activate
         ansible-playbook -i .inventory .initialize.yml -t pull
     ;;
+
+    "snapshot")
+        echo "Building a standalone nCoda snapshot"
+        source {{ ansible_venv_dir }}/bin/activate
+        ansible-playbook -i .inventory .snapshot.yml
+    ;;
