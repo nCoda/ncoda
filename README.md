@@ -1,4 +1,4 @@
-ncoda Development Environment Setup Program
+nCoda Development Environment Setup Program
 ===========================================
 
 [![CircleCI](https://circleci.com/gh/nCoda/ncoda/tree/main.svg?style=svg)](https://circleci.com/gh/nCoda/ncoda/tree/main)
@@ -7,9 +7,14 @@ This repository holds an automation suite that downloads and configures an
 [nCoda](https://ncodamusic.org/) development environment. nCoda software is cloned into the
 "programs" directory.
 
-Note: We have only tested this program on CentOS 7, Ubuntu 16.04 and 14.04, and several macOS
-variants. We would like to support more platforms and operating systems, so please contact us if
-you would like to help!
+We develop *nCoda* on our own [Phabricator](https://goldman.ncodamusic.org/) installation. You must
+register an account and upload an SSH key to clone our repositories from Phabricator. However, you
+may also clone this repository without signing up by using our mirror on
+[GitHub](https://github.com/ncoda/ncoda).
+
+**Supported platforms:** we develop this program on CentOS 7, test formally on Ubuntu 14.04, and
+less often on several macOS versions. We would like to support more platforms and operating systems,
+so please contact us if you can help.
 
 
 Getting Started
