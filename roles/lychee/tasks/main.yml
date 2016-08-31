@@ -7,12 +7,10 @@
     state: latest
     name: "pip setuptools"
 
-- name: install requirements from PyPI
-  pip: virtualenv={{ lychee_venv_dir }} requirements={{ repo_directory }}/lychee/ncoda_requirements.txt
-
+# NOTE: the order of the items below is important (Fujian depends on Lychee depends on mercurial-hug)
 - name: install locally-cloned packages
   pip: virtualenv={{ lychee_venv_dir }} name={{ repo_directory }}/{{ item }} state=present extra_args="-e"
   with_items:
-    - fujian
-    - lychee
     - mercurial-hug
+    - lychee[devel]
+    - fujian
