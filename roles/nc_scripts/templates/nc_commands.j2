@@ -1,3 +1,16 @@
+    "activate")
+        {# Inspiration: https://gist.github.com/datagrok/2199506 #}
+
+        export VIRTUAL_ENV="{{ lychee_venv_dir }}"
+        export PATH="$VIRTUAL_ENV/bin:$PATH"
+        unset PYTHON_HOME
+        echo "To check if the virtualenv is active, run 'which python'."
+        echo "The virtualenv Python is {{ lychee_venv_dir }}/bin/python"
+        echo ""
+        echo "Type 'exit' to leave the virtualenv."
+        exec $SHELL
+    ;;
+
     "reset")
         printf "Regenerating 'hgdemo' test MEI repository.\n\n"
         source {{ ansible_venv_dir }}/bin/activate

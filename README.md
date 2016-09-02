@@ -38,6 +38,22 @@ To use another Python interpreter for development, provide the `lychee_python` c
     $ ./init.py --lychee_python "/usr/bin/pypy"
 
 
+Activate Lychee's Virtualenv
+============================
+
+We use [virtualenv](https://virtualenv.pypa.io/) to manage our Python dependencies. It can be useful
+to activate Lychee's virtualenv when you're working on *nCoda*. Run the `./nc activate` command.
+
+We added some extra goodies to the virtualenv:
+- The `node` and `npm` commands will use the NodeJS and NPM version installed for *nCoda*. This is
+  matched to the same version of NodeJS that *Electron* uses when you start *nCoda*. The setup
+  program automatically upgrades NodeJS when we upgrade *Electron*.
+- The `nc` and `ncoda` commands are also added to the `PATH`, available from any directory without
+  the silly `./` bit. You won't be able to use `netcat` when the virtualenv is activated.
+
+Type `exit` to leave the virtualenv.
+
+
 Manual Dependencies
 ===================
 
