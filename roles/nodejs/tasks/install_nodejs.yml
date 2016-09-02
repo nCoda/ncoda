@@ -31,9 +31,5 @@
 - name: rename unarchived NodeJS directory
   command: mv "{{ node_unarchived_path }}" "{{ nodejs_dir }}"
 
-# Remove unnecessary files (downloaded archive and previous versions of NodeJS)
 - name: remove downloaded NodeJS archive
   file: path="{{ ansible_env.PWD }}/node-v{{ nodejs_version }}.tar.xz" state=absent
-- name: remove old NodeJS versions
-  file: path="{{ ansible_env.PWD }}/nodejs-{{ item }}" state=absent
-  with_items: "{{ nodejs_old_versions }}"

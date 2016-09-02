@@ -15,3 +15,7 @@
   with_items:
     - { target: "{{ node_path }}", link_name: "node" }
     - { target: "{{ npm_path }}", link_name: "npm" }
+
+- name: remove old NodeJS versions
+  file: path="{{ ansible_env.PWD }}/nodejs-{{ item }}" state=absent
+  with_items: "{{ nodejs_old_versions }}"
