@@ -25,3 +25,13 @@
 
 - name: install the Julius/HTTPServer start script
   template: src=julius-http.py.j2 dest={{ julius_http_start_script }} mode="u=rwx,g=rx,o=rx"
+
+# these symlinks appear in the PATH when the Lychee virtualenv is activated
+- name: add relevant symlinks to the Lychee virtualenv
+  file:
+    path: "{{ lychee_venv_dir }}/bin/{{ item.link_name }}"
+    src: "{{ item.target }}"
+    state: link
+  with_items:
+    - { target: "{{ path_to_nc }}", link_name: "nc" }
+    - { target: "{{ path_to_ncoda }}", link_name: "ncoda" }
