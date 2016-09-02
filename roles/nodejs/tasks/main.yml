@@ -5,3 +5,13 @@
 
 - include: install_nodejs.yml
   when: not nodejs_stat.stat.exists
+
+# these symlinks appear in the PATH when the Lychee virtualenv is activated
+- name: add relevant symlinks to the Lychee virtualenv
+  file:
+    path: "{{ lychee_venv_dir }}/bin/{{ item.link_name }}"
+    src: "{{ item.target }}"
+    state: link
+  with_items:
+    - { target: "{{ node_path }}", link_name: "node" }
+    - { target: "{{ npm_path }}", link_name: "npm" }
