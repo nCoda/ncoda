@@ -20,7 +20,8 @@ so please contact us if you can help.
 Getting Started
 ===============
 
-Setup your development environment and run the nCoda test suites.
+Setup your development environment and run the nCoda test suites. Run the following commands as your
+normal user (do not use `su` or `sudo` unless specifically requested).
 
 1. Install manual dependencies (see below).
 1. `./init.py`
