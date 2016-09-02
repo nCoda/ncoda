@@ -13,9 +13,9 @@ test:
   override:
     - ./nc test
 
-deployment:
-  snapshot:
-    branch: main
-    commands:
-      - ./nc snapshot
-      - mv ncoda_snapshot.tar.xz $CIRCLE_ARTIFACTS
+# deployment:
+#   snapshot:
+#     branch: main
+#     commands:
+#       - ./nc snapshot
+#       - mv ncoda_snapshot.tar.xz $CIRCLE_ARTIFACTS
