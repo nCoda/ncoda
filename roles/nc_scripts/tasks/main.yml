@@ -17,6 +17,9 @@
   tags:
     - install_ncoda
 
+- name: make the directory to hold the scripts
+  file: path={{ scripts_directory }} state=directory
+
 - name: install the Fujian start script
   template: src=fujian.sh.j2 dest={{ fujian_start_script }} mode="u=rwx,g=rx,o=rx"
 

@@ -28,6 +28,8 @@
 - include: pull.yml
   when: repo_stage == 'pull'
 
+- name: make the directory to hold the scripts
+  file: path={{ scripts_directory }} state=directory
 - name: generate "retired_warn" script
   template:
     src: retired_warn.py.j2

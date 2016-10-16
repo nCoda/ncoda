@@ -9,6 +9,14 @@ nodejs_old_versions:  # will be deleted
 # root directory of the "ncoda" repository
 repository_root: "{{ ansible_env.PWD }}"
 
+path_to_nc: "{{ repository_root }}/nc"
+path_to_ncoda: "{{ repository_root }}/ncoda"
+scripts_directory_rel: ".scripts"
+scripts_directory: "{{ repository_root }}/{{ scripts_directory_rel }}"
+fujian_start_script: "{{ scripts_directory }}/fujian.sh"
+julius_electron_start_script: "{{ scripts_directory }}/julius-electron.py"
+julius_http_start_script: "{{ scripts_directory }}/julius-http.py"
+
 repo_directory_rel: programs
 repo_directory: "{{ repository_root }}/{{ repo_directory_rel }}"
 ansible_venv_dir_rel: ansible-venv
@@ -19,8 +27,7 @@ hgdemo_dir: "{{ repo_directory }}/hgdemo"
 nodejs_dir: "{{ repository_root }}/nodejs-{{ nodejs_version }}"
 node_path: "{{ nodejs_dir }}/bin/node"
 npm_path: "{{ nodejs_dir }}/bin/npm"
-retired_warn_file: .retired_warn.py
-retired_warn_path: "{{ repository_root }}/{{ retired_warn_file }}"
+retired_warn_path: "{{ scripts_directory }}/retired_warn.py"
 
 git_repositories:
     - {"name": "fujian", "repo": "ssh://vcs@goldman.ncodamusic.org/diffusion/FJ/fujian.git"}
@@ -42,15 +49,6 @@ git_repositories_http:
 
 retired_repos:
     - boring_placeholder_that_doesnt_exist
-
-path_to_nc: "{{ repository_root }}/nc"
-path_to_ncoda: "{{ repository_root }}/ncoda"
-fujian_start_script_rel: ".fujian.sh"
-fujian_start_script: "{{ repository_root }}/{{ fujian_start_script_rel }}"
-julius_electron_start_script_rel: ".julius-electron.py"
-julius_electron_start_script: "{{ repository_root }}/{{ julius_electron_start_script_rel }}"
-julius_http_start_script_rel: ".julius-http.py"
-julius_http_start_script: "{{ repository_root }}/{{ julius_http_start_script_rel }}"
 
 julius_http_port: 8000
 
