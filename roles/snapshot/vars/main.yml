@@ -1,7 +1,0 @@
-ncoda_start_script: ".run_ncoda.py"
-ncoda_start_script_path: "{{ snapshot_dir }}/{{ ncoda_start_script }}"
-
-# shadow global variables
-lychee_venv_dir: "{{ snapshot_dir }}/venv"
-path_to_nc: "{{ snapshot_dir }}/nc"
-path_to_ncoda: "{{ snapshot_dir }}/ncoda"
