@@ -1,17 +1,31 @@
 ---
+- name: set YUM repo path for RHEL 7 and similar
+  set_fact: yum_path_os='RHEL_7'
+  when: ansible_distribution_version == '7'
+
+- name: set YUM repo path for Fedora 24
+  set_fact: yum_path_os='Fedora_24'
+  when: ansible_distribution_version == '24'
+
+- name: set YUM repo path for Fedora 25
+  set_fact: yum_path_os='Fedora_25'
+  when: ansible_distribution_version == '25'
+
 - name: add the "nCoda Watchman" repository
   yum_repository:
     name: 'ncoda_watchman'
     description: 'nCoda Watchman'
-    baseurl: http://download.opensuse.org/repositories/home:/crantila:/watchman/CentOS_7/
+    baseurl: 'http://download.opensuse.org/repositories/home:/crantila:/watchman/{{ yum_path_os }}/'
     gpgcheck: yes
-    gpgkey: http://download.opensuse.org/repositories/home:/crantila:/watchman/CentOS_7/repodata/repomd.xml.key
+    gpgkey: 'http://download.opensuse.org/repositories/home:/crantila:/watchman/{{ yum_path_os }}/repodata/repomd.xml.key'
     enabled: yes
   become: yes
   become_method: sudo
 
 - name: install Watchman
-  yum: name=watchman state=present
+  package: name=watchman state=present
+  become: yes
+  become_method: sudo
 
 - name: set the path to Watchman
   set_fact: path_to_watchman='/usr/bin/watchman-make'
