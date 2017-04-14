@@ -13,6 +13,7 @@
 - name: add the "nCoda Watchman" repository
   apt_repository:
     filename: ncoda_watchman
+    mode: 644
     repo: "deb {{ deb_repo_url }} /"
     state: present
   become: yes
