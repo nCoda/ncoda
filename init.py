@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
-# Copyright 2016 Christopher Antila
+# Copyright 2016, 2018 Christopher Antila
 
 import argparse
 import os.path
@@ -46,7 +46,7 @@ def main():
         # make the virtualenv
         try:
             print('Creating a virtualenv for Ansible')
-            output = subprocess.check_output([
+            subprocess.check_output([
                 virtualenv_exec,
                 '-p',
                 ansible_python,
@@ -65,7 +65,7 @@ def main():
         raise SystemExit(1)
 
     try:
-        subprocess.check_call(['env', 'bash', '-c', '{0}; pip install -U "ansible<2.2"'.format(activate)])
+        subprocess.check_call(['env', 'bash', '-c', '{0}; pip install -U "ansible>2.4,<2.5"'.format(activate)])
     except subprocess.CalledProcessError:
         print('Failed while installing Ansible')
         raise SystemExit(1)
