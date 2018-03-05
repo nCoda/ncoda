@@ -1,29 +1,35 @@
-nCoda Development Environment Setup Program
-===========================================
+nCoda Development
+=================
 
-[![CircleCI](https://circleci.com/gh/nCoda/ncoda/tree/main.svg?style=svg)](https://circleci.com/gh/nCoda/ncoda/tree/main)
+The nCoda development is focusing on three areas
+* Binary releases for use on Linux, Mac or Windows platforms (specific requirements not yet published)
+* Binary pre-release (current builds of the development environment)
+* Development codebase (Continuous Integration testing [![CircleCI](https://circleci.com/gh/nCoda/ncoda/tree/main.svg?style=svg)](https://circleci.com/gh/nCoda/ncoda/tree/main))
 
-This repository holds an automation suite that downloads and configures an
-[nCoda](https://ncodamusic.org/) development environment. nCoda software is cloned into the
-"programs" directory.
+The nCoda application operates as a web based, client/server model, with the server (a python socket)
+operating as on localhost. Additional architecture documentation pending development.
 
-We develop *nCoda* on our own [Phabricator](https://goldman.ncodamusic.org/) installation. You must
-register an account and upload an SSH key to clone our repositories from Phabricator. However, you
-may also clone this repository without signing up by using our mirror on
-[GitHub](https://github.com/ncoda/ncoda).
+We are approaching our [MVP](https://spivak.ncodamusic.org/t/mvp-test-plan/670) (Minimum Viable Product), basic functionality of opening a project, rendering an engraving, changing the score, saving and reopening the project; with simplified install and minimal bugs.
+
+This repository is the development codebase, with development specific components (not required for regular nCoda use).
+
+* Phabricator (project management) https://goldman.ncodamusic.org/ 
+* Git master ssh://vcs@goldman.ncodamusic.org/source/ncoda.git
+* Development mirror (read-only) https://github.com/ncoda/ncoda
+
+(Phabricator and our git master require account approval, email and ssh key authentication.)
+
+Bootstrapping the Development Environment
+=========================================
 
 **Supported platforms:** we develop this program on CentOS 7, test formally on Ubuntu 14.04, and
-less often on several macOS versions. We would like to support more platforms and operating systems,
-so please contact us if you can help.
+less often on several macOS versions. See manual dependencies below for help on other platforms.
+We would like to support additional platforms and operating systems, please contact us if you can help.
 
+After you have cloned this repo,
+bootstrap the development environment as a regular user (not root) with the following steps: 
 
-Getting Started
-===============
-
-Setup your development environment and run the nCoda test suites. Run the following commands as your
-normal user (do not use `su` or `sudo` unless specifically requested).
-
-1. Install manual dependencies (see below).
+1. Install manual dependencies (libffi and openssl, see below).
 1. `./init.py`
 1. `./nc init`
 1. `./nc test`
@@ -92,8 +98,31 @@ problem has been found, and some are not solved properly yet.
   1. Deactivate the virtualenv.
   1. Continue with `init.py`.
 
+Manual Dependencies
+===================
+
+These steps are only required for **non-supported** platforms.
+
+Using CentOS 6.x or Python 2.6 requires a newer python. [Latest python on CentOS 6](https://danieleriksson.net/2017/02/08/how-to-install-latest-python-on-centos/)
+requires:
+
+1. yum update
+1. yum groupinstall -y "development tools"
+1. yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel expat-devel wget
+1. mkdir -p /usr/local/dist /usr/local/src
+1. cd /usr/local/dist
+1. wget http://python.org/ftp/python/2.7.14/Python-2.7.14.tar.xz
+1. cd /usr/local/src
+1. tar xf ../dist/Python-2.7.14.tar.xz
+1. cd Python-2.7.14
+1. ./configure --prefix=/usr/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+1. make && make altinstall
+1. mkdir /usr/local/bin/python2.7-bin
+1. ln -s /usr/local/bin/python2.7 /usr/local/bin/python2.7-bin/python
+1. PATH=/usr/local/bin/python2.7-bin/:$PATH
 
 Contact
 =======
 
 Find contact information on our website at https://ncodamusic.org/.
+
