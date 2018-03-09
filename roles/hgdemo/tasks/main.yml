@@ -1,16 +1,39 @@
 ---
-- name: install dependencies
-  pip: virtualenv={{ ansible_venv_dir }} name={{ repo_directory }}/{{ item }} state=present extra_args="-e"
-  with_items:
-    - mercurial-hug
-    - ShelfExtender
-
-# in case this fails, don't delete the previous hgdemo until after
-- name: generate the hgdemo repository
-  command: python -m shelfex chdir={{ repo_directory }}/hgdemo_config
+- name: run stat on the repository archive
+  stat: path={{ repository_root }}/.hgdemo_archive/hgdemo-201802.xz
+  register: hgdemo_stat
+- name: check for the repository archive
+  fail: msg="The 'hgdemo' source repository archive is missing."
+  when: not hgdemo_stat.stat.exists
 
 - name: delete previous hgdemo repository
   file: path={{ hgdemo_dir }} state=absent
 
-- name: move generated hgdemo into place
-  command: mv {{ repo_directory }}/hgdemo_config/repo {{ hgdemo_dir }}
+- name: unarchive the hgdemo repository
+  unarchive:
+    dest: "{{ repo_directory }}"
+    remote_src: yes
+    src: "{{ repository_root }}/.hgdemo_archive/hgdemo-201802.xz"
+
+
+
+# NOTE: The following steps generate a "hgdemo" repository with ShelfExtender.
+#       These steps were commented in February 2018 because they were causing some problems,
+#       and we're not using Mercurial at the moment. We should be able to enable this in the
+#       future---but we will have to update the "hgdemo_config" repository first.
+
+# - name: install dependencies
+#   pip: virtualenv={{ ansible_venv_dir }} name={{ repo_directory }}/{{ item }} state=present extra_args="-e"
+#   with_items:
+#     - mercurial-hug
+#     - ShelfExtender
+
+# # in case this fails, don't delete the previous hgdemo until after
+# - name: generate the hgdemo repository
+#   command: python -m shelfex chdir={{ repo_directory }}/hgdemo_config
+
+# - name: delete previous hgdemo repository
+#   file: path={{ hgdemo_dir }} state=absent
+
+# - name: move generated hgdemo into place
+#   command: mv {{ repo_directory }}/hgdemo_config/repo {{ hgdemo_dir }}
