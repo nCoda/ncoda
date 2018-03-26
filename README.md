@@ -15,14 +15,14 @@ This repository is the development codebase, with development specific component
 
 * Phabricator (project management) https://goldman.ncodamusic.org/ 
 * Git master ssh://vcs@goldman.ncodamusic.org/source/ncoda.git
-* Development mirror (read-only) https://github.com/ncoda/ncoda
+* Development mirror (read-only, public fork) https://github.com/ncoda/ncoda
 
 (Phabricator and our git master require account approval, email and ssh key authentication.)
 
 Bootstrapping the Development Environment
 =========================================
 
-**Supported platforms:** we develop this program on CentOS 7, test formally on Ubuntu 14.04, and
+**Supported platforms:** we develop on CentOS 7, test formally on Ubuntu 14.04, and
 less often on several macOS versions. See manual dependencies below for help on other platforms.
 We would like to support additional platforms and operating systems, please contact us if you can help.
 
