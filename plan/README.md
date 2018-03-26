@@ -1,37 +1,67 @@
 # Documentation
 
-## Structure Overview
+Our user Guide breaks out the primary functions of the nCoda application suite,
+including components of the user interface, features and how to use them.
+The Guide describes what you can do with the application.
+It is the most fundamental documentation, doubling as a design requirement
+during the development stage.
 
-Instructions or a user "Guide" is the most fundamental documentation.
+Accept to define the development goals, the guide will be a minimal generalization,
+more of a placeholder for user documentation, until the product and user interface have stabilized.
 
-**Guide** will be minimal, as convenient, or deferred, until the product has stabilized.
+A design Plan, or blueprint of the nCoda internal workings, is a narrative with illustrations,
+representing detailed goals, specific algorithms, procedures and functions, within the code base.
+(And, the current 2018Q2 documentation focus.)
 
-**Plan** a narrative representation vs the actual implementation (code base), and the current documentation focus.
+All details in the Plan should be traceable to a specific objectives in the Guide.
+When we refer to the Plan, we are actually making a comparison between the Guide and the Code.
+To achieve the next step, we decide whether to update the plan or the code.
+By measuring the quality of the code with respect to the user Guide, specific
+development goals and achievements are in context, measureable and clear from multiple perspectives.
 
-Usually when we say plan, we making a comparison of the static design goals to their (dynamic but) complementary implementation (code development),
+Illustration:
+```
+Guide / Goals  ->  Plan     ->  Code
+a, b, c        ->  1, 2, 3  ->  x, y, z
+```
 
-Within the Plan, a distinction is made between the user experience (design or UX), and a technical detail (specification).
+This traceability enables better change analysis and decisions. For example, it can 
+1. Illustrate the impact of switching from single application, to client/server architecture.
+1. Identify level of effort related to specific deign goals.
+1. Identify the blast radius of a specific bug or procedure change and identify impacted components.
+1. Enable housekeeping, such as identifying and purging orphan variables and procedures no longer in use.
+1. Enable timely updates and enhancements by indexing procedures and variables according to context and purpose.
 
-The detailed, technical specification plan, supports the UX design plan by articulating the orchestration of specific methods and API (a narrative), which creates the UX.
+When we trace goals through to the plan and on to the code,
+an opportunity exists to align all aspects of development management,
+notably, the trajectory of efforts and a basis for quality checks, for ongoing stability.
+Efforts are wasted when goals are too vague for quality checks, or the day after an objective is met, everybody moves in opposite directions.
+
+Within the Plan, a distinction is made between the user experience (UX design) and a technical details (specification).
+The detailed specification supports the UX by narrating the orchestration of methods and API to create the UX.
 
 Since the user interface (UI) is normally matured asynchronously with the technical detail, that is also distinguished.
 
-Here is the hierarchy:
-* plan/guide/
-* plan/ui/
-* plan/ux/
-* plan/{details}
+Here is the hierarchy of the documentation and plans:
+* `./plan/guide/` - user guide
+* `./plan/ui/` - user interface
+* `./plan/ux/` - user experience
+* `./plan/` - detail index
 
-The plan should direct the code but in the course of development,
-it is natural for the code to advance ahead of documentation 
-leading to a code base without a complementary specification. 
-
-When the code deviates from the specification, it becomes difficult to identify
-which takes precedence or what the trajectory is. The plan is however, more forgiving
-with regard to overview and implemention details.  For this reason, the documentation should be updated
-to remain the reference implementation, even if not comprehensive.
+Graphviz Illustration: `Guide -> UX -> detail -> code -> UI` 
 
 
+The plan detail should direct the code but in the course of development,
+it is natural for the code to advance ahead of documentation,
+leading to a code base without complementary specification
+ties to the requirements (user guide)
+
+When code deviates from a specification, best trajectories and precedence of efforts 
+are difficult to identify. The interpretation of the plan is however, more forgiving than the code.
+For this reason, the documentation should be updated to remain the reference plan, at all times vs code
+(even if the reference plan is not comprehensive into the details).
+
+# Questions about the current codebase
 
 Session Management ( https://lychee.ncodamusic.org/workflow-session.html )
 
@@ -88,8 +118,15 @@ Based on what parameters, how are they known?
 
 
 
+# Queue for additional questions
 
-
+( https://chat.ncodamusic.org/everyone/pl/ih63oga6m7nw7rpmdxww5y9fmw )
+* https://lychee.ncodamusic.org/basic_concepts.html#generic-workflow
+* https://lychee.ncodamusic.org/workflow-steps.html#lychee.workflow.steps.do_inbound_conversion
+* https://lychee.ncodamusic.org/workflow-session.html
+* it may not exist, but lychee.workflow.* is as high-level as you can get in Lychee. The functions in lychee.workflow.steps correspond exactly with those described in the "Generic Workflow," and the InteractiveSession object is what calls those functions
+* http://www.tornadoweb.org/en/stable/
+* https://spivak.ncodamusic.org/t/windows-installation-instructions/735
 
 
 ## Style
